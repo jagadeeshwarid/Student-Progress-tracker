@@ -1,0 +1,85 @@
+{
+    "Data Analyst": {
+      "Phase 1": {
+        "Documents": ["Self Introduction", "Resume", "LinkedIn Portfolio", "Github Repository"]
+      },
+      "Phase 2": {
+        "Python": [
+          "Basics", "Control Flow", "Functions", "Data Structures", 
+          "File Handling", "Object-Oriented Programming (OOP)", "Modules & Packages"
+        ],
+        "Statistics": [
+          "Basic Concepts", "Descriptive Statistics", "Inferential Statistics", "Probability"
+        ]
+      },
+      "Phase 3": {
+        "Machine Learning": [
+          "Regression Models", "Classification Models", "Ensemble Learning", 
+          "Instance-Based Learning", "Regularization & Feature Engineering", 
+          "Clustering", "Association Rule Learning", "Recommendation Systems", "Dimensionality Reduction"
+        ]
+      },
+      "Phase 4": {
+        "SQL": [
+          "Basic Concepts", "Basic SQL Commands", "Data Manipulation", "Joins and Relationships",
+          "Subqueries and Set Operators", "Data Definition Language (DDL)", "Data Control Language (DCL)",
+          "Window Functions", "Advanced Topics"
+        ]
+      },
+      "Phase 5": {
+        "Excel": [
+          "Introduction to Excel", "Basic Functions & Formulas", "Data Formatting & Manipulation",
+          "Advanced Formulas & Functions", "Data Analysis & Pivot Tables", "Charts & Visualizations",
+          "Advanced Excel Functions", "Power Query & Power Pivot", "Excel Dashboards"
+        ]
+      },
+      "Phase 6": {
+        "PowerBI": [
+          "Data Preparation & Transformation", "Data Modeling", "DAX (Data Analysis Expressions)",
+          "Visualizations & Reports", "Power BI Service & Publishing"
+        ]
+      }
+    },
+    "Data Scientist": {
+      "Phase 1": {
+        "Documents": ["Self Introduction", "Resume", "LinkedIn Portfolio", "GitHub Repo"]
+      },
+      "Phase 2": {
+        "Python": [
+          "Basics", "Control Flow", "Functions", "Data Structures",
+          "File Handling", "Object-Oriented Programming (OOP)", "Modules & Packages"
+        ],
+        "Statistics": [
+          "Basic Concepts", "Descriptive Statistics", "Inferential Statistics", "Probability"
+        ]
+      },
+      "Phase 3": {
+        "Machine Learning": [
+          "Regression Models", "Classification Models", "Ensemble Learning",
+          "Instance-Based Learning", "Regularization & Feature Engineering",
+          "Clustering", "Association Rule Learning", "Recommendation Systems", "Dimensionality Reduction"
+        ]
+      },
+      "Phase 4": {
+        "Deep Learning": [
+          "Introduction to Deep Learning", "Core DL Concepts", "Neural Networks",
+          "Convolutional Neural Networks (CNNs)", "Advanced CNN Architectures",
+          "Computer Vision with OpenCV", "Object Detection", "Autoencoders"
+        ],
+        "NLP": [
+          "Introduction to NLP", "Word Embeddings", "Recurrent Neural Networks (RNNs) & Variants",
+          "Text Classification & Sequence Models", "Transformer Models",
+          "BERT (Bidirectional Encoder Representations from Transformers)",
+          "Named Entity Recognition (NER)", "Project 1: Email Segregation", "Project 2: Chatbot Development"
+        ]
+      },
+      "Phase 5": {
+        "Time Series Modeling (TSM)": [
+          "Introduction to Time Series", "Time Series Analysis", "Time Series Forecasting",
+          "Time Series Models", "Advanced Time Series Models", "Model Evaluation & Metrics",
+          "Time Series Data Preprocessing", "Trend and Seasonality"
+        ]
+      }
+    }
+  }
+  
