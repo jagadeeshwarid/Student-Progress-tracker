@@ -21,9 +21,9 @@ def load_completion_dates():
         try:
             with open(COMPLETION_DATE_FILE, "r") as f:
                 data = f.read().strip()
-                return json.loads(data) if data else {}  # Empty JSON if file is empty
+                return json.loads(data) if data else {}
         except json.JSONDecodeError:
-            return {}  # Return empty dictionary if JSON is corrupt
+            return {}
     return {}
 
 # Function to Save Completion Dates to JSON
@@ -31,7 +31,7 @@ def save_completion_dates(data):
     temp_file = COMPLETION_DATE_FILE + ".tmp"
     with open(temp_file, "w") as f:
         json.dump(data, f, indent=4)
-    os.replace(temp_file, COMPLETION_DATE_FILE)  # Safely replace original file
+    os.replace(temp_file, COMPLETION_DATE_FILE)
 
 # Load saved completion dates
 completion_dates = load_completion_dates()
@@ -119,76 +119,33 @@ else:
 
     if selected_track:
         topics_data = manager.get_topics(selected_track)
+        overall_progress = {}
+        student_progress = {}
 
-        # Phase Selection
-        selected_phase = st.selectbox("Select a Phase", list(topics_data.keys()), index=None, placeholder="Select a Phase")
-
-        if selected_phase:
-            topics = topics_data[selected_phase]
-            
-            # Topic Selection
-            selected_topic = st.selectbox("Select a Topic", list(topics.keys()), index=None, placeholder="Select a Topic")
-
-            if selected_topic:
-                subtopics = topics[selected_topic]
-                progress_data = {}
-
-                st.markdown(f"### 📌 Select and Rate Progress for *{selected_topic}*")
-
+        for phase, topics in topics_data.items():
+            phase_progress = []
+            for topic, subtopics in topics.items():
                 if isinstance(subtopics, list):
-                    for subtopic in subtopics:
-                        col1, col2, col3 = st.columns([3, 1, 2])
+                    progress_values = [completion_dates.get(sub, {}).get("progress", 0) for sub in subtopics]
+                    phase_progress.extend(progress_values)
+            
+            if phase_progress:
+                overall_progress[phase] = sum(phase_progress) / len(phase_progress)
 
-                        with col1:
-                            checked = st.checkbox(subtopic, value=completion_dates.get(subtopic, {}).get("progress", False))
+        if st.session_state["role"] == "student":
+            st.markdown(f"## 🎓 Your Overall Progress")
+            if overall_progress:
+                fig_overall = px.pie(names=list(overall_progress.keys()), values=list(overall_progress.values()), title=f"Overall {selected_track} Progress")
+                st.plotly_chart(fig_overall)
+        
+        if st.session_state["role"] == "admin":
+            st.markdown("## 📈 Students' Progress Overview")
+            students = manager.get_all_students()
 
-                        with col2:
-                            percentage = st.slider("", 0, 100, completion_dates.get(subtopic, {}).get("progress", 0), key=subtopic)
-                            progress_data[subtopic] = percentage
-
-                        # Completion Date Handling
-                        with col3:
-                            prev_dates = completion_dates.get(subtopic, {}).get("dates", [])  # Load previous dates (list)
-
-                            # Show latest date in the input (or empty initially)
-                            current_date = st.date_input("Completion Date", value=None if not prev_dates else prev_dates[-1], key=f"date_{subtopic}")
-
-                            if current_date:
-                                if not prev_dates or prev_dates[-1] != current_date:  # Update only if new date is different
-                                    prev_dates.append(str(current_date))  # Append new date as a string
-                                    completion_dates[subtopic] = {"dates": prev_dates, "progress": percentage}
-
-                            # Display previous dates with strikethrough for old ones
-                            if prev_dates:
-                                formatted_dates = "  ".join([f"~~{d}~~" for d in prev_dates[:-1]])  # Slash old dates
-                                formatted_dates += f"  ➡  **{prev_dates[-1]}**"  # Show latest date bold
-                                st.markdown(formatted_dates)
-
-                # Save Updated Dates
-                save_completion_dates(completion_dates)
-
-                # Generate Phase-Wise Pie Chart
-                if progress_data:
-                    fig_phase = px.pie(names=list(progress_data.keys()), values=list(progress_data.values()), title=f"{selected_phase} Progress")
-                    st.plotly_chart(fig_phase)
-
-                    # Calculate Overall Progress
-                    overall_progress = {}
-                    for phase, topics in topics_data.items():
-                        phase_progress = []
-                        for topic, subtopics in topics.items():
-                            if isinstance(subtopics, list):
-                                phase_progress.extend([completion_dates.get(sub, {}).get("progress", 0) for sub in subtopics])
-
-                        if phase_progress:
-                            overall_progress[phase] = sum(phase_progress) / len(phase_progress)
-
-                    # Generate Overall Progress Pie Chart
-                    if overall_progress:
-                        fig_overall = px.pie(names=list(overall_progress.keys()), values=list(overall_progress.values()), title=f"Overall {selected_track} Progress")
-                        st.plotly_chart(fig_overall)
-
-    # Admin View: Monitor Student Progress
-    if st.session_state["role"] == "admin":
-        st.markdown("## 📈 Students' Progress Overview")
-        create_average_progress_chart()
+            if students:
+                for student, progress in students.items():
+                    st.markdown(f"### 👤 {student}")
+                    st.write("Progress Overview:")
+                    create_progress_chart(progress)  # Visualize student progress
+            else:
+                st.warning("No student data available.")

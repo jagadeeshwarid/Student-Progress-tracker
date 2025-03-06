@@ -95,6 +95,18 @@ class DataManager:
         all_deadlines = self._load_json(self.deadlines_file)
         return all_deadlines.get(username, {})
 
+    def get_all_students(self):
+        """Retrieve all students and their progress"""
+        users = self._load_json(self.users_file)
+        progress = self._load_json(self.progress_file)
+
+        student_data = {}
+        for username, details in users.items():
+            if details.get("role") == "student":
+                student_data[username] = progress.get(username, {})
+
+        return student_data
+
     def _load_json(self, file_path):
         """Load JSON file safely"""
         try:

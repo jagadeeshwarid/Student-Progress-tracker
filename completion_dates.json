@@ -1,23 +1,22 @@
 {
-    "Basic Concepts": {
+    "Resume": {
         "dates": [
             "2025-03-26",
-            "2025-03-26",
-            "2025-03-26"
+            "2025-03-21"
         ],
         "progress": 0
     },
-    "Probability": {
+    "LinkedIn Portfolio": {
         "dates": [
-            "2025-03-28",
-            "2025-03-28"
+            "2025-03-27"
         ],
         "progress": 0
     },
-    "Descriptive Statistics": {
+    "Self Introduction": {
         "dates": [
+            "2025-03-08",
             "2025-03-22"
         ],
-        "progress": 0
+        "progress": 28
     }
 }
