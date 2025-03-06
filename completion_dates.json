@@ -18,5 +18,24 @@
             "2025-03-22"
         ],
         "progress": 28
+    },
+    "Regression Models": {
+        "dates": [
+            "2025-03-01",
+            "2025-03-02"
+        ],
+        "progress": 0
+    },
+    "Instance-Based Learning": {
+        "dates": [
+            "2025-03-26"
+        ],
+        "progress": 0
+    },
+    "Descriptive Statistics": {
+        "dates": [
+            "2025-03-25"
+        ],
+        "progress": 0
     }
 }
