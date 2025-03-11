@@ -37,5 +37,11 @@
             "2025-03-25"
         ],
         "progress": 0
+    },
+    "BERT (Bidirectional Encoder Representations from Transformers)": {
+        "dates": [
+            "2025-03-26"
+        ],
+        "progress": 59
     }
 }

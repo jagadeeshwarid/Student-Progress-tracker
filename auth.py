@@ -46,16 +46,29 @@ class Auth:
         st.error("Invalid password")
         return False
 
-    def register(self, username, password):
-        """Register a new student user"""
-        if not username or not password:
+    def register(self, username, password, confirm_password):
+        """
+        Register a new student user
+        Returns tuple (success, message)
+        """
+        if not username or not password or not confirm_password:
+            return False
+
+        if password != confirm_password:
             return False
 
         if self.data_manager.get_user(username):
             return False
 
-        self.data_manager.save_user(username, self.hash_password(password), "student")
-        return True
+        # Hash password and save user
+        hashed_password = self.hash_password(password)
+        success = self.data_manager.save_user(username, hashed_password, "student")
+        if success:
+            # Initialize empty progress data for new user
+            self.data_manager.initialize_user_progress(username)
+            return True
+
+        return False
 
     def logout(self):
         """Clear all authentication related session state"""
